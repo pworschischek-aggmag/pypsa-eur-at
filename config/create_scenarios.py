@@ -16,16 +16,21 @@ import itertools
 # Insert your config values that should be altered in the template.
 # Change `config_section` and `config_section2` to the actual config sections.
 template = """
-scenario{scenario_number}:
-    config_section:
-        config_key: {config_value}
-    config_section2:
-        config_key2: {config_value2}
+{scenario_name}:
+    foresight: {foresight}
+    solving:
+      solver:
+        name: {solver_name}
+        options: {solver_name}-default
 """
 
 # Define all possible combinations of config values.
 # This must define all config values that are used in the template.
-config_values = dict(config_value=["true", "false"], config_value2=[1, 2, 3, 4])
+config_values = dict(
+    solver_name=["gurobi", "highs", "copt"],
+    timesteps=[120, 3, 1],  # h
+    foresight=["myopic", "perfect"],
+)
 
 combinations = [
     dict(zip(config_values.keys(), values))
@@ -33,5 +38,8 @@ combinations = [
 ]
 
 with open(filename, "w") as f:
-    for i, config in enumerate(combinations):
-        f.write(template.format(scenario_number=i, **config))
+    for config in combinations:
+        scenario_name = (
+            f"{config['foresight']}_{config['solver_name']}_{config['timesteps']}h"
+        )
+        f.write(template.format(scenario_name=scenario_name, **config))
