@@ -18,6 +18,10 @@ import itertools
 template = """
 {scenario_name}:
     foresight: {foresight}
+    clustering: 
+      temporal:
+        resolution_elec: {timesteps}
+        resolution_sector: {timesteps}
     solving:
       solver:
         name: {solver_name}
