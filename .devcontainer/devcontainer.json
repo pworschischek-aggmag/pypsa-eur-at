@@ -1,0 +1,15 @@
+{
+  "name": "pypsa-eur-at",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "conda env create -f envs/linux-pinned.yaml",
+  // "postCreateCommand": ["pixi init --import environment.yml", "pixi install"],
+  "customizations": {
+    "jetbrains": {
+      "backend": "PyCharm"
+    }
+  },
+  "remoteUser": "root"
+}
